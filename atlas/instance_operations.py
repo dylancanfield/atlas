@@ -373,7 +373,7 @@ def correct_fs_permissions(instance):
     # Lookup gid (Group ID), `chown` uses IDs for user and group
     group = getgrnam(WEBSERVER_USER_GROUP)
     long.info('SIS debug | group | %s', group)
-    log.debug('Instance | Correct FS permissions | Group - %s', group)
+    log.debug('Instance | Correct FS permissions | Group - %s', int(group))
     # `os.walk` does not follow symlinks by default.
     for root, directories, files in os.walk(instance_path, topdown=False):
         # Change directory permissions.
