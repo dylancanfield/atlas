@@ -429,7 +429,7 @@ def correct_fs_permissions(instance):
                 if not ENVIRONMENT == 'local' and getpwuid(os.stat(file).st_uid).pw_name == SSH_USER:
                     # Octet mode, Python 3 compatible
                     os.chown(file, -1, group.gr_gid)
-                 log.info('SIS file stat after | %s', os.stat(file))
+                log.info('SIS file stat after | %s', os.stat(file))
 
 
 def sync_instances(sid=None):
