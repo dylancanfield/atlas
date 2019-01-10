@@ -372,8 +372,8 @@ def correct_fs_permissions(instance):
     # Walk produces 3-tuple for each dir or file, does not follow symlinks.
     # Lookup gid (Group ID), `chown` uses IDs for user and group
     group = getgrnam(WEBSERVER_USER_GROUP)
-    long.info('SIS debug | group | %s', group)
-    log.debug('Instance | Correct FS permissions | Group - %s', int(group))
+    log.info('Instance | Correct FS permissions | Group - %s', group)
+    log.debug('Instance | Correct FS permissions | Group - %s', group)
     # `os.walk` does not follow symlinks by default.
     for root, directories, files in os.walk(instance_path, topdown=False):
         # Change directory permissions.
@@ -429,7 +429,7 @@ def correct_fs_permissions(instance):
                 if not ENVIRONMENT == 'local' and getpwuid(os.stat(file).st_uid).pw_name == SSH_USER:
                     # Octet mode, Python 3 compatible
                     os.chown(file, -1, group.gr_gid)
-                log.info('SIS file stat after | %s', os.stat(file))
+                 log.info('SIS file stat after | %s', os.stat(file))
 
 
 def sync_instances(sid=None):
