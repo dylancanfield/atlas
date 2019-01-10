@@ -102,17 +102,17 @@ CELERYBEAT_SCHEDULE = {
             "status": "available",
         },
     },
-    'available_sites_check': {
-        'task': 'atlas.tasks.available_sites_check',
-        'schedule': timedelta(minutes=5),
-    },
-    'delete_stuck_pending_sites': {
-        'task': 'atlas.tasks.delete_stuck_pending_sites',
-        'schedule': timedelta(minutes=5),
-    },
+    # 'available_sites_check': {
+    #     'task': 'atlas.tasks.available_sites_check',
+    #     'schedule': timedelta(minutes=5),
+    # },
+    # 'delete_stuck_pending_sites': {
+    #     'task': 'atlas.tasks.delete_stuck_pending_sites',
+    #     'schedule': timedelta(minutes=5),
+    # },
     'remove_orphan_statistics': {
         'task': 'atlas.tasks.remove_orphan_statistics',
-        'schedule': timedelta(minutes=60),
+        'schedule': timedelta(minutes=6),
     },
     'remove_stale_installed_sites': {
         'task': 'atlas.tasks.take_down_installed_old_sites',
@@ -148,6 +148,6 @@ CELERYBEAT_SCHEDULE = {
     },
     'verify_statistics_updating': {
         'task': 'atlas.tasks.verify_statistics',
-        'schedule': crontab(minute=0, hour=6),
+        'schedule': timedelta(minutes=60),
     },
 }
