@@ -372,6 +372,7 @@ def correct_fs_permissions(instance):
     # Walk produces 3-tuple for each dir or file, does not follow symlinks.
     # Lookup gid (Group ID), `chown` uses IDs for user and group
     group = getgrnam(WEBSERVER_USER_GROUP)
+    long.info('SIS debug | group | %s', group)
     log.debug('Instance | Correct FS permissions | Group - %s', group)
     # `os.walk` does not follow symlinks by default.
     for root, directories, files in os.walk(instance_path, topdown=False):
@@ -415,16 +416,20 @@ def correct_fs_permissions(instance):
                 if not os.path.islink(directory):
                     # Octet mode, Python 3 compatible
                     # Include SetGID for directory
+                    log.info('SIS file stat before | %s', os.stat(directory))
                     os.chmod(directory, 02775)
                     if not ENVIRONMENT == 'local' and getpwuid(os.stat(directory).st_uid).pw_name == SSH_USER:
                         os.chown(directory, -1, group.gr_gid)
+                    log.info('SIS file stat before | %s', os.stat(directory))
             for file in [os.path.join(root, f) for f in files]:
                 # Check if we own the file, don't try to change the perms if we don't
                 # TODO Remove ownership check when the umask is in place.
+                log.info('SIS file stat before | %s', os.stat(file))
                 os.chmod(file, 0o664)
                 if not ENVIRONMENT == 'local' and getpwuid(os.stat(file).st_uid).pw_name == SSH_USER:
                     # Octet mode, Python 3 compatible
                     os.chown(file, -1, group.gr_gid)
+                 log.info('SIS file stat after | %s', os.stat(file))
 
 
 def sync_instances(sid=None):
