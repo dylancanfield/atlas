@@ -148,6 +148,6 @@ CELERYBEAT_SCHEDULE = {
     },
     'verify_statistics_updating': {
         'task': 'atlas.tasks.verify_statistics',
-        'schedule': timedelta(minutes=60),
+        'schedule': crontab(minute=0, hour=6),
     },
 }
